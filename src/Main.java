@@ -43,12 +43,27 @@ public class Main {
 
             System.out.println("В файле "+index+" строк");
 
-          /*  int i;
+            String[] strings = new String[index];
+            index=0;
+            try (BufferedReader br = new BufferedReader(new FileReader(args[0])))
+            {
+                // BufferedReader br = new BufferedReader(new FileReader(args[0]));
+                String sCurrentLine;
+                while ((sCurrentLine = br.readLine()) != null)
+                {
+                    strings[index++]=sCurrentLine;
+                }
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
 
-            while((i=fileInputStream.read())!= -1){
+            System.out.println("Выводим строки из массив");
+            for (int i=0; i<strings.length; i++){
+                System.out.println(strings[i]);
+            }
 
-                System.out.print((char)i);
-            }*/
         }
 	// write your code here
     }
