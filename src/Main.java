@@ -1,12 +1,21 @@
 import java.io.*;
 
 /*
-Задание:
-На вход пользователь указывает имя файла - аргумент программы
-Если файл не нашли, то открываем run.ini
-В консоль пользователь вводит номер строки который он хочет вывести на консоль
-Добавить проверки.
-Придумать 3 testcase.
+Техническое задание(ТЗ):
+На вход подается строка(одно слово), и нам нужно определить какому пользовалю относиться
+
+Решение:
+Класс Пользователь(User)
+Login
+ФИО
+Массив Слов
+
+Класс Слово(Word)
+Строка
+
+Ришат:
+Создать класс Слово
+В класс Пользователь добавить новое поле Массив Слов и реализовать set и get
  */
 public class Main {
 
@@ -14,30 +23,14 @@ public class Main {
         System.out.println(args.length);
         if (args.length>=1){
             System.out.println(args[0]);
-            FileInputStream fileInputStream = null;
-            /*try {
-                if ((new File(args[0])).exists()){
-                    System.out.println("Файл есть");
-                    fileInputStream = new FileInputStream(args[0]);
-                }else{
-                    fileInputStream = new FileInputStream("run.ini");
-                }
-
-            } catch (FileNotFoundException e) {
-                System.out.println("Ошибка при открытии файла "+args[0]+". Указанный в параметре args[0]");
-                e.printStackTrace();
-             //   fileInputStream = new FileInputStream("run.ini");
-            }*/
+            User[] users;
 
             int index=0;
             try (BufferedReader br = new BufferedReader(new FileReader(args[0])))
             {
-               // BufferedReader br = new BufferedReader(new FileReader(args[0]));
-                String sCurrentLine;
-                while ((sCurrentLine = br.readLine()) != null)
+                while ( br.readLine() != null)
                 {
                     index++;
-                    System.out.println(sCurrentLine);
                 }
             }
             catch (IOException e)
@@ -47,7 +40,8 @@ public class Main {
 
             System.out.println("В файле "+index+" строк");
 
-            String[] strings = new String[index];
+            users=new User[index];
+
             index=0;
             try (BufferedReader br = new BufferedReader(new FileReader(args[0])))
             {
@@ -55,7 +49,8 @@ public class Main {
                 String sCurrentLine;
                 while ((sCurrentLine = br.readLine()) != null)
                 {
-                    strings[index++]=sCurrentLine;
+                    String[] arr_str= sCurrentLine.split(";");
+                    users[index++]=new User(arr_str[0],arr_str[1]);
                 }
             }
             catch (IOException e)
@@ -64,8 +59,8 @@ public class Main {
             }
 
             System.out.println("Выводим строки из массив");
-            for (int i=0; i<strings.length; i++){
-                System.out.println(strings[i]);
+            for (int i=0; i<users.length; i++){
+                System.out.println(users[i].getLogin()+"|"+users[i].getFIO());
             }
 
         }
